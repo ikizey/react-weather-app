@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { GEODB_REQUEST_OPTIONS } from "./api/geoDB";
 import "./App.css";
+import Cities from "./components/Cities";
 import SearchForm from "./components/SearchForm";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
     return (
         <div className="App">
             <SearchForm onSearch={onSearch} />
+            {geoLocation && <Cities cities={geoLocation} />}
         </div>
     );
 }
