@@ -1,7 +1,12 @@
 import "./App.css";
+import SearchForm from "./components/SearchForm";
 
 function App() {
-    return <div className="App">Simple Weather</div>;
+    return (
+        <div className="App">
+            <SearchForm />
+        </div>
+    );
 }
 
 export default App;
