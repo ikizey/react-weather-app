@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { FcSearch } from "react-icons/fc";
 import styles from "./SearchForm.module.css";
 
-const SearchForm = props => {
+const SearchForm = ({ onSearch }) => {
     const searchText = useRef();
 
     const submitHandler = event => {
         event.preventDefault();
-        const valueForSearch = searchText.current.value;
+        onSearch(searchText.current.value.trim());
     };
 
     return (
