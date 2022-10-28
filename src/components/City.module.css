@@ -1,0 +1,6 @@
+.city {
+    flex-grow: 1;
+    line-height: 3rem;
+    min-width: 60vw;
+    /* border: 1px solid; */
+}

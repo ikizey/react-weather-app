@@ -1,4 +1,69 @@
-.card {
-    max-width: 30%;
-    margin: 0px auto;
+@import url(https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css);
+
+.container {
+    display: flex;
+    cursor: default;
+    flex-grow: 0;
+}
+
+.location {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.city {
+    font-size: 3rem;
+}
+
+.country {
+    flex: 0 1 auto;
+    font-size: 2rem;
+}
+
+.main {
+    display: flex;
+    flex: 1 1 20%;
+    flex-direction: column;
+    max-width: 250px;
+}
+
+.weatherImg {
+    max-height: 250px;
+}
+
+.description {
+    font-size: 2rem;
+}
+
+.conditions {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.feelsLike {
+    font-size: 3rem;
+}
+.feelsLike::before {
+    content: "\f055  ";
+    font-family: weathericons;
+}
+
+.wind {
+    font-size: 1.3rem;
+}
+.wind::before {
+    content: "\f050  ";
+    font-family: weathericons;
+}
+
+.humidity {
+    font-size: 1.3rem;
+}
+.humidity::before {
+    content: "\f050  ";
+    font-family: weathericons;
 }
