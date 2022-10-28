@@ -12,10 +12,11 @@ export const responseToWeather = (response, city) => {
     return {
         city: city.city,
         country: city.country,
-        temp: data.main.temp,
         feelsLike: data.main.feels_like,
-        pressure: data.main.pressure,
         humidity: data.main.humidity,
         wind: data.wind.speed,
+        icon: data.weather[0].icon,
+        details: data.weather[0].main,
+        description: data.weather[0].description,
     };
 };
