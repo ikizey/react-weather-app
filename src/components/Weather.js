@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Weather.module.css";
-import day_clear_sky from "../assets/img/10d.png";
 import Card from "./UI/Card";
+import WeatherImg from "./UI/WeatherImg";
 
 const Weather = ({ weather }) => {
     return (
@@ -12,9 +12,9 @@ const Weather = ({ weather }) => {
                     <div className={styles.country}>{weather.country}</div>
                 </div>
                 <div className={styles.main}>
-                    <img
+                    <WeatherImg
                         className={styles.weatherImg}
-                        src={day_clear_sky}
+                        src={weather.icon}
                         alt={weather.description}
                     />
                     <p className={styles.description}>{weather.description}</p>
