@@ -1,92 +1,76 @@
 import axios from "axios";
-import { useState } from "react";
-import { GEODB_REQUEST_OPTIONS } from "./api/geoDB";
-import { OPEN_WEATHER_REQUEST_OPTIONS } from "./api/openweathermap.js";
+import React, { useState } from "react";
+import { geodb_config } from "./api/geoDB";
+import { ow_config } from "./api/openweathermap.js";
 import "./App.css";
 import Cities from "./components/Cities";
 import SearchForm from "./components/SearchForm";
 import Weather from "./components/Weather";
+import { responseToGeoLocations, responseToWeather } from "./helper/helpers";
 
 function App() {
     const [geoLocation, setGeoLocation] = useState([]);
     const [weather, setWeather] = useState(null);
-    const [retries, setRetries] = useState(0);
-    const maxRetries = 3;
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onSearch = searchTerm => {
-        const request_options = {
-            ...GEODB_REQUEST_OPTIONS,
-            params: { ...GEODB_REQUEST_OPTIONS.params, namePrefix: searchTerm },
-        };
+    const onSearch = async searchTerm => {
+        if (!isLoading) {
+            setIsLoading(true);
+            if (weather) setWeather(null);
+            try {
+                const response = await axios.request(geodb_config(searchTerm));
+                const location = responseToGeoLocations(response);
 
-        axios
-            .request(request_options)
-            .then(response => response.data)
-            .then(json => {
-                setGeoLocation(
-                    json.data.map(location => ({
-                        id: location.id,
-                        city: location.city,
-                        country: location.country,
-                        lon: location.longitude,
-                        lat: location.latitude,
-                    }))
+                if (!location.length) {
+                    throw new Error("Location is not found!");
+                }
+
+                if (location.length === 1) {
+                    citySelectHandler(location[0]);
+                    return;
+                }
+                setGeoLocation(location);
+            } catch (error) {
+                console.error(error); //TODO
+            } finally {
+                setIsLoading(false);
+            }
+        }
+    };
+
+    const citySelectHandler = async city => {
+        if (!isLoading) {
+            setIsLoading(true);
+            setGeoLocation([city]);
+            try {
+                const response = await axios.request(
+                    ow_config(city.longitude, city.latitude)
                 );
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                const weather = responseToWeather(response, city);
+                setWeather(weather);
+            } catch (error) {
+                console.error(error); //TODO
+            } finally {
+                setIsLoading(false);
+            }
+        }
     };
 
-    const citySelectHandler = city => {
-        setGeoLocation([city]);
-        const request_options = {
-            ...OPEN_WEATHER_REQUEST_OPTIONS,
-            params: {
-                ...OPEN_WEATHER_REQUEST_OPTIONS.params,
-                lon: city.lon,
-                lat: city.lat,
-            },
-        };
-
-        axios
-            .request(request_options)
-            .then(response => response.data)
-            .then(data => {
-                if (data) setRetries(1);
-                setWeather({
-                    temp: data.main.temp,
-                    feelsLike: data.main.feels_like,
-                    pressure: data.main.pressure,
-                    humidity: data.main.humidity,
-                    wind: data.wind.speed,
-                    city: city.city,
-                    country: city.country,
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    };
-
-    if (geoLocation.length === 1 && !weather && retries < maxRetries) {
-        citySelectHandler(geoLocation[0]);
-        setRetries(current => current + 1);
+    let result = <p>No weather data for this location</p>;
+    if (isLoading) {
+        result = <p>Loading...</p>;
+    } else if (geoLocation.length > 1) {
+        result = (
+            <Cities cities={geoLocation} onCitySelect={citySelectHandler} />
+        );
+    } else if (geoLocation.length === 1 && weather) {
+        result = <Weather weather={weather} />;
     }
-    // console.log(geoLocation);
-    // console.log(weather);
+
     return (
         <div className="App">
             <SearchForm onSearch={onSearch} />
-            {geoLocation && geoLocation.length > 1 && (
-                <Cities cities={geoLocation} onCitySelect={citySelectHandler} />
-            )}
-            {geoLocation && geoLocation.length === 1 && weather && (
-                <Weather weather={weather} />
-            )}
-            {geoLocation && retries === maxRetries && (
-                <p>No weather Data for this location</p>
-            )}
+            {result}
         </div>
     );
 }

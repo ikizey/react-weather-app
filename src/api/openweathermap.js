@@ -1,10 +1,10 @@
-export const OPEN_WEATHER_REQUEST_OPTIONS = {
+export const ow_config = (longitude, latitude) => ({
     method: "GET",
     url: "https://api.openweathermap.org/data/2.5/weather",
     params: {
-        lat: "44.34", //latitude, required
-        lon: "10.99", //longitude, required
+        lat: `${longitude}`, //required
+        lon: `${latitude}`, //required
         appid: process.env.REACT_APP_OPEN_WEATHER_API_TOKEN,
-        units: "metric", //
+        units: "metric", //optional
     },
-};
+});
