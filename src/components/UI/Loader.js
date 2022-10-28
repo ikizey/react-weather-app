@@ -3,8 +3,8 @@ import styles from "./Loader.module.css";
 
 const Loader = () => {
     return (
-        <div class={styles["loadingio-spinner-magnify"]}>
-            <div class={styles["ldio"]}>
+        <div className={styles["loadingio-spinner-magnify"]}>
+            <div className={styles["ldio"]}>
                 <div>
                     <div>
                         <div></div>
