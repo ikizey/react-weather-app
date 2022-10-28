@@ -5,6 +5,7 @@ import { ow_config } from "./api/openweathermap.js";
 import styles from "./App.module.css";
 import Cities from "./components/Cities";
 import SearchForm from "./components/SearchForm";
+import Loader from "./components/UI/Loader";
 import Weather from "./components/Weather";
 import { responseToGeoLocations, responseToWeather } from "./helper/helpers";
 
@@ -19,7 +20,6 @@ function App() {
             if (weather) setWeather(null);
             try {
                 const response = await axios.request(geodb_config(searchTerm));
-                console.log(response);
                 const location = responseToGeoLocations(response);
 
                 if (!location.length) {
@@ -59,7 +59,7 @@ function App() {
 
     let result = <p>No weather data for this location</p>;
     if (isLoading) {
-        result = <p>Loading...</p>;
+        result = <Loader />;
     } else if (geoLocation.length > 1) {
         result = (
             <Cities cities={geoLocation} onCitySelect={citySelectHandler} />
