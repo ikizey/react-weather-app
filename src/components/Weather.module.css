@@ -63,7 +63,3 @@
 .humidity {
     font-size: 1.3rem;
 }
-.humidity::before {
-    content: "\f050  ";
-    font-family: weathericons;
-}

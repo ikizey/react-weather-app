@@ -25,7 +25,7 @@ const Weather = ({ weather }) => {
                     </div>
                     <div className={styles.wind}>{weather.wind} m/s</div>
                     <div className={styles.humidity}>
-                        Humidity: {weather.humidity} %
+                        Humidity: {weather.humidity}%
                     </div>
                 </div>
             </div>
