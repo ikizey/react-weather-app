@@ -1,0 +1,34 @@
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-justify: center;
+    text-shadow: 0 0 2px aliceblue;
+    text-decoration: solid;
+    color: azure;
+    background: linear-gradient(0deg, #348ac7 10%, #7474bf 90%);
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0px 0px 2px 5px #7b2cbf;
+    max-width: 60vw;
+    margin: 0px auto 2rem auto;
+    cursor: pointer;
+
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0.1;
+        transform: translateY(20vh);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.card:hover {
+    box-shadow: 0px 0px 2px 5px #9d4edd;
+}
