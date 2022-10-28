@@ -4,6 +4,7 @@ import { geodb_config } from "./api/geoDB";
 import { ow_config } from "./api/openweathermap.js";
 import styles from "./App.module.css";
 import Cities from "./components/Cities";
+import ErrorComp from "./components/ErrorComp";
 import SearchForm from "./components/SearchForm";
 import Loader from "./components/UI/Loader";
 import Weather from "./components/Weather";
@@ -13,9 +14,16 @@ function App() {
     const [geoLocation, setGeoLocation] = useState([]);
     const [weather, setWeather] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const onSearch = async searchTerm => {
+        if (searchTerm.trim().length < 1) {
+            setError(new Error("Please, enter location"));
+            return;
+        }
+
         if (!isLoading) {
+            setError(null);
             setIsLoading(true);
             if (weather) setWeather(null);
             try {
@@ -32,7 +40,7 @@ function App() {
                 }
                 setGeoLocation(location);
             } catch (error) {
-                console.error(error); //TODO
+                setError(error);
             } finally {
                 setIsLoading(false);
             }
@@ -41,6 +49,7 @@ function App() {
 
     const citySelectHandler = async city => {
         if (!isLoading) {
+            setError(null);
             setIsLoading(true);
             setGeoLocation([city]);
             try {
@@ -50,15 +59,17 @@ function App() {
                 const weather = responseToWeather(response, city);
                 setWeather(weather);
             } catch (error) {
-                console.error(error); //TODO
+                setError(error);
             } finally {
                 setIsLoading(false);
             }
         }
     };
 
-    let result = <p>No weather data for this location</p>;
-    if (isLoading) {
+    let result = <React.Fragment />;
+    if (error) {
+        result = <ErrorComp error={error.message} />;
+    } else if (isLoading) {
         result = <Loader />;
     } else if (geoLocation.length > 1) {
         result = (
