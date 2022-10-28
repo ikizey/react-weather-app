@@ -1,16 +1,18 @@
 import React from "react";
+import styles from "./Weather.module.css";
 
 const Weather = ({ weather }) => {
     return (
-        <div>
-            <p>{weather.city}</p>
-            <p>{weather.country}</p>
+        <div className={styles.card}>
+            <p>Location:</p>
+            <p>City: {weather.city}</p>
+            <p>Country: {weather.country}</p>
             <p>Weather:</p>
-            <p>{weather.temp}</p>
-            <p>{weather.feelsLike}</p>
-            <p>{weather.pressure}</p>
-            <p>{weather.humidity}</p>
-            <p>{weather.wind}</p>
+            <p>Temperature: {weather.temp}</p>
+            <p>Feels like: {weather.feelsLike}</p>
+            <p>Pressure: {weather.pressure}</p>
+            <p>Humidity: {weather.humidity}</p>
+            <p>Wind Speed: {weather.wind}</p>
         </div>
     );
 };

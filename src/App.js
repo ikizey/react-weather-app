@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { geodb_config } from "./api/geoDB";
 import { ow_config } from "./api/openweathermap.js";
-import "./App.css";
+import styles from "./App.module.css";
 import Cities from "./components/Cities";
 import SearchForm from "./components/SearchForm";
 import Weather from "./components/Weather";
@@ -19,6 +19,7 @@ function App() {
             if (weather) setWeather(null);
             try {
                 const response = await axios.request(geodb_config(searchTerm));
+                console.log(response);
                 const location = responseToGeoLocations(response);
 
                 if (!location.length) {
@@ -68,7 +69,7 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className={styles.container}>
             <SearchForm onSearch={onSearch} />
             {result}
         </div>

@@ -12,21 +12,23 @@ const SearchForm = ({ onSearch }) => {
     };
 
     return (
-        <div className={styles.form}>
-            <form className={styles.form} onSubmit={submitHandler}>
-                <label htmlFor="search"></label>
-                <input
-                    ref={searchText}
-                    className={styles.input}
-                    type="text"
-                    name="search"
-                    id="search"
-                    placeholder="Enter location... (Berlin)"
-                />
+        <form className={styles.form} onSubmit={submitHandler}>
+            <label htmlFor="search"></label>
+            <input
+                ref={searchText}
+                className={`${styles.input} ${styles.element}`}
+                type="text"
+                name="search"
+                id="search"
+                placeholder=" Enter location... (ex. Berlin)"
+            />
 
-                <FcSearch className={styles.icon} onClick={submitHandler} />
-            </form>
-        </div>
+            <FcSearch
+                className={`${styles.btn} ${styles.element}`}
+                onClick={submitHandler}
+            />
+            <input type="submit" hidden />
+        </form>
     );
 };
 
