@@ -2,19 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10vh 0 0 0;
-    column-gap: 20px;
+    padding: 5vh 0 0;
 }
 
 .logo {
-    max-width: 5rem;
+    max-width: 4rem;
     animation: spin 4s linear infinite;
 }
 
 .title {
-    font-size: 4rem;
+    font-size: 3rem;
     text-shadow: 0 0 4px aliceblue;
     color: azure;
+    margin-left: 10px;
 }
 
 @keyframes spin {
@@ -32,5 +32,14 @@
     }
     100% {
         transform: rotate(0deg);
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding: 3vh 0 0;
+    }
+    .title {
+        font-size: 2.5rem;
     }
 }

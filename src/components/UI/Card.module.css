@@ -12,8 +12,15 @@
     box-shadow: 0px 0px 2px 5px #7b2cbf;
     margin: 0 auto 2rem auto;
     cursor: pointer;
-
+    max-width: 767px;
     animation: fadeIn 2s forwards;
+}
+
+@media (max-width: 767px) {
+    .card {
+        margin: 0 auto 2rem auto;
+        max-width: 479px;
+    }
 }
 
 @keyframes fadeIn {

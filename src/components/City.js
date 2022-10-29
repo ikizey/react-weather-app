@@ -9,9 +9,9 @@ const City = ({ city, onCitySelect }) => {
     };
     return (
         <Card>
-            <p className={styles.city} onClick={clickHandler}>
+            <div className={styles.city} onClick={clickHandler}>
                 {city.city}
-            </p>
+            </div>
         </Card>
     );
 };

@@ -10,6 +10,7 @@
     margin: 0 auto;
     animation: fadeIn 0.5s forwards;
     padding: 25px;
+    max-width: 60%;
 }
 
 @keyframes fadeIn {

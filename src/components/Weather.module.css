@@ -3,12 +3,10 @@
 .container {
     display: flex;
     cursor: default;
-    flex-grow: 0;
 }
 
 .location {
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -19,13 +17,12 @@
 }
 
 .country {
-    flex: 0 1 auto;
     font-size: 2rem;
 }
 
 .main {
     display: flex;
-    flex: 1 1 20%;
+    flex: 1 1 auto;
     flex-direction: column;
     max-width: 250px;
 }
@@ -63,4 +60,19 @@
 
 .humidity {
     font-size: 1.3rem;
+}
+
+@media (max-width: 767px) {
+    .city {
+        font-size: 2rem;
+    }
+    .country {
+        font-size: 1rem;
+    }
+    .description {
+        font-size: 1rem;
+    }
+    .feelsLike {
+        font-size: 2rem;
+    }
 }
