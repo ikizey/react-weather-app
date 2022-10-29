@@ -5,6 +5,7 @@ import { ow_config } from "./api/openweathermap.js";
 import styles from "./App.module.css";
 import Cities from "./components/Cities";
 import ErrorComp from "./components/ErrorComp";
+import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import Loader from "./components/UI/Loader";
 import Weather from "./components/Weather";
@@ -81,6 +82,7 @@ function App() {
 
     return (
         <div className={styles.container}>
+            <Header />
             <SearchForm onSearch={onSearch} />
             {result}
         </div>
